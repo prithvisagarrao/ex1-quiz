@@ -34,24 +34,25 @@ func main() {
 
 	timer := time.NewTimer(time.Duration(*timeLimit) * time.Second)
 
-	ansChn := make(chan string)
-	go func() {
-		var ans string
-
-		fmt.Scanf("%s\n",&ans)
-		ansChn <- ans
-	}()
-
 
 	score := 0
 	for i, p := range pr{
 
 		fmt.Printf("Problem #%v: %v = \n", i+1, p.q)
+		ansChn := make(chan string)
+		go func() {
+			var ans string
+
+			fmt.Scanf("%s\n",&ans)
+			ansChn <- ans
+		}()
+
+
 
 		select {
 
 		case <-timer.C:
-			fmt.Printf("\nTime's up. Your score is %d",score)
+			fmt.Printf("Time's up. Your score is %d out of %d\n",score, i)
 			return
 		case ans := <-ansChn:
 			if (ans == p.a){
@@ -64,7 +65,7 @@ func main() {
 
 	}
 
-	fmt.Printf("Your score is %d",score)
+	fmt.Printf("Your score is %d out of %d",score,len(pr))
 
 }
 
