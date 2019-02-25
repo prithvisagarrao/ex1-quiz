@@ -11,8 +11,8 @@ import (
 
 func main() {
 
-	csvFileName := flag.String("csv file", "problems.csv","a csv file in 'question,answer' format")
-	timeLimit := flag.Int("time limit", 30, "time limit for the quiz in seconds")
+	csvFileName := flag.String("csv", "problems.csv","a csv file in 'question,answer' format")
+	timeLimit := flag.Int("timer", 30, "time limit for the quiz in seconds")
 	flag.Parse()
 
 	file, err := os.Open(*csvFileName)
